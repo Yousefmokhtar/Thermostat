@@ -13,23 +13,27 @@ void LED_init(uint8_t LED_PIN)
 {
 #if LED_ENABLED == STD_ON
     GPIO_PinInit(LED_PIN, GPIO_OUTPUT);
+    DEBUG_PRINTLN("Iint LED" + String(LED_PIN));
 #endif
 }
 void LED_ON(uint8_t LED_PIN)
 {
 #if LED_ENABLED == STD_ON
     write_pin_high(LED_PIN);
+    DEBUG_PRINTLN("LED HIGH");
 #endif
 }
 void LED_OFF(uint8_t LED_PIN)
 {
 #if LED_ENABLED == STD_ON
     write_pin_Low(LED_PIN);
+    DEBUG_PRINTLN("LED LOW");
 #endif
 }
 void LED_Toggle(uint8_t LED_PIN)
 {
 #if LED_ENABLED == STD_ON
     Toggle(LED_PIN);
+    DEBUG_PRINTLN("LED Toggle");
 #endif
 }
