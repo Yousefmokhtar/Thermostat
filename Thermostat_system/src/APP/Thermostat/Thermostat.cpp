@@ -5,7 +5,6 @@
 #include "../../HAL/MQTT/MQTT.h"
 #include <Arduino.h>
 
-// Pin definitions (adjust based on your hardware)
 #define POT_TEMP_PIN     34  // POT1 for temperature reading
 #define POT_HUMIDITY_PIN 35  // POT2 for humidity reading
 #define POT_TARGET_PIN   32  // POT3 for target temperature knob
@@ -14,7 +13,6 @@
 #define LED_MED_SPEED    26  // LED2 for medium fan speed
 #define LED_HIGH_SPEED   27  // LED3 for high fan speed
 
-// Conversion constants
 #define POT_TO_TEMP_MIN    15.0f  // Min temp 15°C
 #define POT_TO_TEMP_MAX    35.0f  // Max temp 35°C
 #define POT_TO_HUMIDITY_MIN 20.0f // Min humidity 20%
@@ -24,7 +22,6 @@
 #define UPDATE_INTERVAL_MS 1000   // Update every 1 second
 #define MQTT_PUBLISH_INTERVAL_MS 5000 // Publish every 5 seconds
 
-// Static variables
 static Thermostat_Status_t g_status = {
     .temperature = 0.0f,
     .humidity = 0.0f,
@@ -68,9 +65,6 @@ void Thermostat_Process(void)
     // Update sensor readings periodically
     if (now - g_lastUpdate >= UPDATE_INTERVAL_MS)
     {
-        // Read POT values and convert to meaningful data
-        // Note: You'll need to modify POT.cpp to read from specific pins
-        // For now, using placeholder reads
         
         // Read temperature POT
         uint16_t temp_raw = analogRead(POT_TEMP_PIN);
@@ -206,7 +200,6 @@ static void updateLEDs(void)
             break;
         case FAN_SPEED_OFF:
         default:
-            // All LEDs already off
             break;
     }
 }

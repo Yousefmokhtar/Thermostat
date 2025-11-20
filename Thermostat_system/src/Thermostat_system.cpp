@@ -29,10 +29,8 @@ void setup()
     
     Serial.println("WiFi initialization started");
     
-    // Wait a bit for WiFi to start connecting
     delay(2000);
     
-    // Initialize thermostat hardware (LEDs, ADC pins)
     Thermostat_Init();
     thermostatInitialized = true;
     
@@ -44,23 +42,18 @@ void setup()
 
 void loop() 
 {
-    // Process WiFi status (handles auto-reconnection)
     WIFI_Process();
 
-    // Only run MQTT and thermostat logic if WiFi is connected
     if (WIFI_IsConnected() && mqttInitialized) 
     {
-        // Run MQTT loop
         MQTT_Loop();
         
-        // Process thermostat (read sensors, control logic, LED updates)
         if (thermostatInitialized)
         {
             Thermostat_Process();
         }
     }
     
-    // Print status periodically for debugging
     static unsigned long lastStatus = 0;
     if (millis() - lastStatus > 10000) // Every 10 seconds
     {
@@ -88,6 +81,5 @@ void loop()
         lastStatus = millis();
     }
     
-    // Small delay to prevent watchdog issues
     delay(10);
 }
