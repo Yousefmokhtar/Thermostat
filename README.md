@@ -116,8 +116,7 @@ Thermostat_SetFanSpeed(FAN_SPEED_HIGH);
 
 Set target temperature
 Thermostat_SetTargetTemp(25.0f);
-<!-- Code block properly closed above -->
-
+```
 ### 💡 LED Behavior
 
 | Fan Speed | LED           |
