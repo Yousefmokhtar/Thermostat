@@ -101,10 +101,9 @@ Published every **5 seconds**:
 
 ## 🖥️ API Functions
 
-### Initialization  
 ```c
+Initialization
 Thermostat_Init();
-
 
 Main loop
 Thermostat_Process();
@@ -117,6 +116,7 @@ Thermostat_SetFanSpeed(FAN_SPEED_HIGH);
 
 Set target temperature
 Thermostat_SetTargetTemp(25.0f);
+<!-- Code block properly closed above -->
 
 ### 💡 LED Behavior
 
@@ -129,7 +129,7 @@ Thermostat_SetTargetTemp(25.0f);
 
 
 
-🚀 Future Enhancements
+### 🚀 Future Enhancements
 
 Support real sensors (DHT22, SHT30)
 
