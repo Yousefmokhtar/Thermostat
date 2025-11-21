@@ -22,6 +22,15 @@
 #define UPDATE_INTERVAL_MS 1000   // Update every 1 second
 #define MQTT_PUBLISH_INTERVAL_MS 5000 // Publish every 5 seconds
 
+typedef enum {
+    STATE_OFF,
+    STATE_HEATING_LOW,
+    STATE_HEATING_MEDIUM,
+    STATE_HEATING_HIGH
+} ThermostatState_t;
+
+static ThermostatState_t g_state = STATE_OFF;
+
 static Thermostat_Status_t g_status = {
     .temperature = 0.0f,
     .humidity = 0.0f,
