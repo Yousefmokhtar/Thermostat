@@ -52,4 +52,6 @@ bool SIM_SendSMS(const char* recipient, const char* message);
 uint8_t SIM_GetSignalQuality(void);
 bool SIM_MakeCall(const char* number);
 
+void SIM_MODULE_Init(void);
+
 #endif

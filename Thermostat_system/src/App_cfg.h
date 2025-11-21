@@ -141,6 +141,10 @@
 #define MQTT_KEEPALIVE      60
 #define MQTT_RECONNECT_MS   5000
 
+// SMS Recipient 
+#define SMS_RECIPIENT "+201120076894"
+
+
 // System Configuration
 #define SERIAL_BAUD_RATE    115200
 

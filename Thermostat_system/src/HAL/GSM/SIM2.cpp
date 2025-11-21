@@ -22,12 +22,25 @@ void SIM_Init(void)
 void SIM_MODULE_Init(void)
 {
   #if SIM_800L_ENABLED==STD_ON
-    SIM_CheckSIM();
+
+    if (!SIM_ModemRestart())
+    {
+        Serial.println("Error: Modem restart failed!");
+        return;
+    }
+
+    sim_status_t simStatus = SIM_CheckSIM();
+    if (simStatus != SIMReady)
+    {
+        Serial.println("Error: SIM not ready!");
+        return;
+    }
+
     SIM_Init();
-    SIM_ModemRestart();
     int csq = SIM_GetSignalQuality();
     Serial.println("Signal Quality: ");
     Serial.print(csq);
+        
   #endif
 }
 

@@ -3,6 +3,7 @@
 #include "../POT/POT.h"
 #include "../LED/LED.h"
 #include "../../HAL/MQTT/MQTT.h"
+#include "../../HAL/GSM/SIM2.h"
 #include <Arduino.h>
 
 // Pin definitions (adjust based on your hardware)
@@ -24,6 +25,8 @@
 #define UPDATE_INTERVAL_MS 1000   // Update every 1 second
 #define MQTT_PUBLISH_INTERVAL_MS 5000 // Publish every 5 seconds
 
+
+
 // Static variables
 static Thermostat_Status_t g_status = {
     .temperature = 0.0f,
@@ -33,6 +36,9 @@ static Thermostat_Status_t g_status = {
     .mode = THERMOSTAT_MODE_AUTO,
     .heating = false
 };
+
+static Fan_Speed_t g_lastFanSpeed = FAN_SPEED_OFF;
+
 
 static unsigned long g_lastUpdate = 0;
 static unsigned long g_lastPublish = 0;
@@ -127,6 +133,14 @@ void Thermostat_SetFanSpeed(Fan_Speed_t speed)
     if (g_status.mode == THERMOSTAT_MODE_MANUAL)
     {
         g_status.fan_speed = speed;
+
+        if (g_status.fan_speed != g_lastFanSpeed) {
+            char msg[50];
+            snprintf(msg, sizeof(msg), "Fan speed changed: %d", g_status.fan_speed);
+            SIM_SendSMS(SMS_RECIPIENT, msg);
+            g_lastFanSpeed = g_status.fan_speed;
+        }
+
         updateLEDs();
     }
 }
@@ -245,5 +259,13 @@ static void autoControlLogic(void)
         // Within deadband, maintain current state or turn off
         g_status.heating = false;
         g_status.fan_speed = FAN_SPEED_OFF;
+    }
+
+    if (g_status.fan_speed != g_lastFanSpeed) {
+
+        char msg[50];
+        snprintf(msg, sizeof(msg), "Fan speed changed: %d", g_status.fan_speed);
+        SIM_SendSMS(SMS_RECIPIENT, msg);
+        g_lastFanSpeed = g_status.fan_speed;
     }
 }

@@ -34,6 +34,9 @@ void setup()
     // Wait a bit for WiFi to start connecting
     delay(2000);
     
+    // Initialize GSIM 
+    SIM_MODULE_Init();
+    
     // Initialize thermostat hardware (LEDs, ADC pins)
     Thermostat_Init();
     thermostatInitialized = true;
